@@ -1,0 +1,77 @@
+body {
+    padding-top: 0.1in;
+    font-family: Arial;
+    width: 100%;
+    margin-top: 2px;
+}
+
+p {
+    margin: 2px;
+}
+
+h2 {
+    margin: 2px;
+}
+
+.section {
+    display: -webkit-box;
+    margin: 0.5in;
+}
+
+.section div {
+    width: 50%;
+}
+
+#invoiceTitle {
+    text-align: right;
+    font-size: 40px;
+}
+
+#invoiceDetails {
+    text-align: right;
+}
+
+.table {
+    box-sizing: border-box;
+    margin: 0.5in;
+    padding: 0;
+    border: 1px solid black;
+}
+
+.entry {
+    display: -webkit-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.entry div {
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.item {
+    width: 25%;
+}
+
+.description {
+    width: 50%;
+}
+
+.price {
+    width: 25.1%;
+}
+
+#labels,
+#total {
+    background-color: rgb(220, 220, 220);
+}
+
+#totalLabel {
+    text-align: right;
+    width: 75%;
+}
+
+#totalPrice {
+    width: 25.1%;
+}
