@@ -7,6 +7,7 @@ const user_config_filename = "user_config.json";
 const app_style_path = path.resolve(__dirname, '..', 'css', 'style.css');
 const inv_style_path = path.resolve(__dirname, '..', 'css', 'invoice.css');
 
+const DEBUG = true;
 
 function get_data() {
     let data = {};
@@ -27,6 +28,8 @@ function get_data() {
 }
 
 function getAppDataPath() {
+    if (DEBUG) return path.resolve(__dirname, '..');
+
     switch (process.platform) {
         case "darwin": {
             return path.join(process.env.HOME, "Library", "Application Support", app_name);
