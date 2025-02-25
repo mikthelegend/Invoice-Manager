@@ -102,7 +102,7 @@ function generate_invoice_dom(personal_details, client_details, invoice_details,
 
     // Personal Details
     template.getElementById("userName").innerText = personal_details.name;
-    template.getElementById("userABN").innerText = personal_details.abn;
+    template.getElementById("userABN").innerText = "ABN: " + personal_details.abn;
     template.getElementById("userAddress1").innerText = personal_details.addr1;
     template.getElementById("userAddress2").innerText = personal_details.addr2;
     template.getElementById("userCountry").innerText = personal_details.country;
