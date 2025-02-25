@@ -30,7 +30,7 @@ function init() {
     });
 
     let sender_selector = document.getElementById("sender_selector");
-    client_selector.addEventListener("change", () => {
+    sender_selector.addEventListener("change", () => {
         let selected_sender = sender_selector.value;
         let sender_details = get_sender_details(selected_sender);
         fill_sender_details(sender_details);
@@ -46,10 +46,9 @@ function init() {
 
 init();
 
-fill_sender_detials();
+fill_sender_selector();
 fill_client_selector();
 fill_invoice_details();
-fill_payment_details();
 fill_item_selector("item1");
 
 async function run() {
@@ -58,13 +57,19 @@ async function run() {
     let client_details = extract_client_details();
     let invoice_details = extract_invoice_details();
     let items = extract_items();
-    let payment_details = extract_payment_details();
     
     // Update all changed details.
     let data = get_data();
 
-    // Update user details.
-    data.sender_details = sender_details;
+    // Update sender details.
+    if (sender_details.name != "") {
+        let existing_sender = data.senders.find(s => s.name == sender_details.name);
+        if (existing_sender) {
+            existing_sender = sender_details;
+        } else {
+            data.senders.push(sender_details);
+        }
+    }
 
     // Update client details.
     if (client_details.name != "") {
@@ -76,17 +81,13 @@ async function run() {
         }
     }
 
-    // Update payment details.
-    data.payment_details = payment_details;
-
     set_data(data);
 
     let dom = generate_invoice_dom(
         sender_details, 
         client_details, 
         invoice_details,
-        items,
-        payment_details
+        items
     );
 
     let filename = "inv" + invoice_details.inv_number.padStart(5, '0') + ".pdf";
@@ -104,7 +105,7 @@ async function run() {
 
 }
 
-function generate_invoice_dom(sender_details, client_details, invoice_details, items, payment_details) {
+function generate_invoice_dom(sender_details, client_details, invoice_details, items) {
     let template = new DOMParser().parseFromString(fs.readFileSync(template_path), "text/html");
 
     // Sender Details
@@ -150,6 +151,9 @@ function generate_invoice_dom(sender_details, client_details, invoice_details, i
     template.getElementById("totalPrice").innerText = AUDollar.format(total_price);
 
     // Payment Details
+
+    let payment_details = sender_details.payment_details;
+
     template.getElementById("BSB").innerText += payment_details.bsb;
     template.getElementById("ACC").innerText += payment_details.account_number;
     template.getElementById("note").innerText += payment_details.message;

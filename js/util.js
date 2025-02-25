@@ -13,6 +13,8 @@ function get_data() {
     let data = {};
     const appDatatDirPath = getAppDataPath();
 
+    console.log(appDatatDirPath);
+
     // Create appDataDir if not exist
     if (!fs.existsSync(appDatatDirPath)) {
         fs.mkdirSync(appDatatDirPath);

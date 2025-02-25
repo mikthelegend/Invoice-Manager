@@ -28,7 +28,6 @@ function fill_item_selector(item_id) {
 function update_item_selectors() {
     let item_list = document.getElementById("item_list");
     for (let child of item_list.children) {
-        console.log(child, child.children[0].tagName);
         if (child.children[0].tagName == "SELECT") {
             fill_item_selector(child.id);
         }
