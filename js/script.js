@@ -29,6 +29,13 @@ function init() {
         })
     });
 
+    let sender_selector = document.getElementById("sender_selector");
+    client_selector.addEventListener("change", () => {
+        let selected_sender = sender_selector.value;
+        let sender_details = get_sender_details(selected_sender);
+        fill_sender_details(sender_details);
+    });
+
     let client_selector = document.getElementById("client_selector");
     client_selector.addEventListener("change", () => {
         let selected_client = client_selector.value;
@@ -39,7 +46,7 @@ function init() {
 
 init();
 
-fill_personal_detials();
+fill_sender_detials();
 fill_client_selector();
 fill_invoice_details();
 fill_payment_details();
@@ -47,7 +54,7 @@ fill_item_selector("item1");
 
 async function run() {
     // Extract details from document.
-    let personal_details = extract_personal_details();
+    let sender_details = extract_sender_details();
     let client_details = extract_client_details();
     let invoice_details = extract_invoice_details();
     let items = extract_items();
@@ -57,7 +64,7 @@ async function run() {
     let data = get_data();
 
     // Update user details.
-    data.personal_details = personal_details;
+    data.sender_details = sender_details;
 
     // Update client details.
     if (client_details.name != "") {
@@ -75,7 +82,7 @@ async function run() {
     set_data(data);
 
     let dom = generate_invoice_dom(
-        personal_details, 
+        sender_details, 
         client_details, 
         invoice_details,
         items,
@@ -97,15 +104,15 @@ async function run() {
 
 }
 
-function generate_invoice_dom(personal_details, client_details, invoice_details, items, payment_details) {
+function generate_invoice_dom(sender_details, client_details, invoice_details, items, payment_details) {
     let template = new DOMParser().parseFromString(fs.readFileSync(template_path), "text/html");
 
-    // Personal Details
-    template.getElementById("userName").innerText = personal_details.name;
-    template.getElementById("userABN").innerText = "ABN: " + personal_details.abn;
-    template.getElementById("userAddress1").innerText = personal_details.addr1;
-    template.getElementById("userAddress2").innerText = personal_details.addr2;
-    template.getElementById("userCountry").innerText = personal_details.country;
+    // Sender Details
+    template.getElementById("senderName").innerText = sender_details.name;
+    template.getElementById("senderABN").innerText = "ABN: " + sender_details.abn;
+    template.getElementById("senderAddress1").innerText = sender_details.addr1;
+    template.getElementById("senderAddress2").innerText = sender_details.addr2;
+    template.getElementById("senderCountry").innerText = sender_details.country;
 
     // Client Details
     template.getElementById("clientName").innerText = client_details.name;
