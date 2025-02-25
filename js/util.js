@@ -7,7 +7,7 @@ const user_config_filename = "user_config.json";
 const app_style_path = path.resolve(__dirname, '..', 'css', 'style.css');
 const inv_style_path = path.resolve(__dirname, '..', 'css', 'invoice.css');
 
-const DEBUG = true;
+const DEBUG = false;
 
 function get_data() {
     let data = {};
