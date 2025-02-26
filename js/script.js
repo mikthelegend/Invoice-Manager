@@ -62,22 +62,14 @@ async function run() {
 
     // Update sender details.
     if (sender_details.name != "") {
-        let existing_sender = data.senders.find(s => s.name == sender_details.name);
-        if (existing_sender) {
-            existing_sender = sender_details;
-        } else {
-            data.senders.push(sender_details);
-        }
+        data.senders = data.senders.filter(s => s.name != sender_details.name);
+        data.senders.unshift(sender_details);
     }
 
     // Update client details.
     if (client_details.name != "") {
-        let existing_client = data.clients.find(c => c.name == client_details.name);
-        if (existing_client) {
-            existing_client = client_details;
-        } else {
-            data.clients.push(client_details);
-        }
+        data.clients = data.clients.filter(c => c.name != client_details.name);
+        data.clients.unshift(client_details);
     }
 
     set_data(data);
