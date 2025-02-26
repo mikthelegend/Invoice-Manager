@@ -24,7 +24,6 @@ function init() {
     let del_item_button = document.getElementById("del_item");
     del_item_button.addEventListener('click', () => {
         prompt("Preset to delete:", (response) => {
-            console.log(response);
             erase_item_preset(response);
         })
     });
@@ -101,6 +100,8 @@ async function run() {
         });
 
         update_inv_number();
+        fill_sender_selector();
+        fill_client_selector();
     }
 
 }

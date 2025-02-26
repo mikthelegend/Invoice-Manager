@@ -36,6 +36,8 @@ function fill_sender_selector() {
     if (!data.senders) return;
 
     let sender_selector = document.getElementById("sender_selector");
+    sender_selector.innerHTML = "<option></option>";
+
     data.senders.forEach(sender => {
         sender_selector.innerHTML += "<option value=\"" + sender.name + "\">" + sender.name + "</option>";
     });

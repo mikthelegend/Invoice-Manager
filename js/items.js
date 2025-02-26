@@ -13,6 +13,7 @@ function fill_item_selector(item_id) {
 
     let item_selector = document.getElementById(item_id).children[0];
     item_selector.innerHTML = "<option></option>";
+
     data.items.forEach(item => {
         item_selector.innerHTML += "<option value=\"" + item.preset_name + "\">" + item.preset_name + "</option>";
     })
@@ -37,9 +38,7 @@ function update_item_selectors() {
 function extract_items() {
     let item_list = Array.from(document.getElementById("item_list").children);
 
-    console.log(item_list);
     let items = item_list.map(item => {
-        console.log(item.id);
         return extract_item_details(item.id);
     });
 

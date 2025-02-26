@@ -21,6 +21,8 @@ function fill_client_selector() {
     if (!data.clients) return;
 
     let client_selector = document.getElementById("client_selector");
+    client_selector.innerHTML = "<option></option>";
+
     data.clients.forEach(client => {
         client_selector.innerHTML += "<option value=\"" + client.name + "\">" + client.name + "</option>";
     });

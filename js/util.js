@@ -13,8 +13,6 @@ function get_data() {
     let data = {};
     const appDatatDirPath = getAppDataPath();
 
-    console.log(appDatatDirPath);
-
     // Create appDataDir if not exist
     if (!fs.existsSync(appDatatDirPath)) {
         fs.mkdirSync(appDatatDirPath);
@@ -24,7 +22,7 @@ function get_data() {
     if (fs.existsSync(appDataFilePath)) {
         data = JSON.parse(fs.readFileSync(appDataFilePath, 'utf8'));
     } else {
-        fs.writeFileSync(appDataFilePath, '{}');
+        fs.writeFileSync(appDataFilePath, '{"senders": [], "clients": [], "items": [], "invoice_number": 0}');
     }
     return data;
 }
