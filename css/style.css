@@ -24,7 +24,7 @@ body > * {
     border-radius: 10px;
 }
 
-#run {
+#save_invoice {
     position: relative;
     left: 40%;
     width: 20%;
