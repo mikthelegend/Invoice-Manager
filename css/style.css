@@ -1,6 +1,7 @@
 body {
     margin: 1%;
     background-color: #ed554a;
+    display: flex;
 }
 
 body > * {
@@ -92,4 +93,17 @@ textarea {
 #popup > button {
     margin-top: 5%;
     width: 45%;
+}
+
+#inputWindow {
+    width: 800px;
+    height: 800px;
+    overflow-y: scroll;
+}
+
+#previewWindow {
+    margin-left: 1%;
+    width: 850px;
+    height: 800px;
+    overflow-y: scroll;
 }

@@ -3,14 +3,20 @@ const { ipcRenderer } = require("electron");
 const template_path = path.resolve(__dirname, 'template.html');
 
 function init() {
-    let run_button = document.getElementById("run");
-    run_button.addEventListener('click', run);
+    let save_invoice_button = document.getElementById("save_invoice");
+    save_invoice_button.addEventListener('click', save_invoice);
 
     let add_item_button = document.getElementById("add_item");
-    add_item_button.addEventListener('click', add_item);
+    add_item_button.addEventListener('click', () => {
+        add_item();
+        run_preview_update();
+    });
 
     let rem_item_button = document.getElementById("rem_item");
-    rem_item_button.addEventListener('click', rem_item);
+    rem_item_button.addEventListener('click', () => {
+        rem_item();
+        run_preview_update();
+    });
 
     let save_item_button = document.getElementById("save_item");
     save_item_button.addEventListener('click', () => {
@@ -41,6 +47,11 @@ function init() {
         let client_details = get_client_details(selected_client);
         fill_client_details(client_details);
     });
+
+    let inputWindow = document.getElementById("inputWindow");
+    inputWindow.addEventListener("change", () => {
+        run_preview_update();
+    });
 }
 
 init();
@@ -49,15 +60,35 @@ fill_sender_selector();
 fill_client_selector();
 fill_invoice_details();
 fill_item_selector("item1");
+run_preview_update();
 
-async function run() {
+async function run_preview_update() {
     // Extract details from document.
     let sender_details = extract_sender_details();
     let client_details = extract_client_details();
     let invoice_details = extract_invoice_details();
     let items = extract_items();
-    
-    // Update all changed details.
+
+    // Generate DOM
+    let dom = generate_invoice_dom(
+        sender_details, 
+        client_details, 
+        invoice_details,
+        items
+    );
+
+    // Update preview
+    update_preview(dom);
+}
+
+async function save_invoice() {
+    // Extract details from document.
+    let sender_details = extract_sender_details();
+    let client_details = extract_client_details();
+    let invoice_details = extract_invoice_details();
+    let items = extract_items();
+
+    // Update all changed details in the data store.
     let data = get_data();
 
     // Update sender details.
@@ -74,6 +105,7 @@ async function run() {
 
     set_data(data);
 
+    // Generate DOM
     let dom = generate_invoice_dom(
         sender_details, 
         client_details, 
@@ -81,9 +113,10 @@ async function run() {
         items
     );
 
+    // Generate save path and filename
     let filename = "inv" + invoice_details.inv_number.padStart(5, '0') + ".pdf";
     
-    let save_path = await ipcRenderer.invoke("openDialog", "Where would you like to save invoice?");
+    let save_path = await ipcRenderer.invoke("openDialog", "Where would you like to save the invoice?");
 
     if (save_path) {
         dom_to_pdf(dom, filename, save_path[0]);
@@ -95,7 +128,6 @@ async function run() {
         fill_sender_selector();
         fill_client_selector();
     }
-
 }
 
 function generate_invoice_dom(sender_details, client_details, invoice_details, items) {

@@ -8,53 +8,58 @@
     <link id="style" rel="stylesheet" href="../css/style.css">
   </head>
   <body>
-    <h1>Invoice Manager</h1>
+    <div id="inputWindow">
+      <h1>Invoice Manager</h1>
 
-    <div class="detail_bar">
-      <div class="details">
-        <h2>Your Details:</h2>
-        <div class="named_input"> <p>Sender:</p> <select id="sender_selector"></select></div>
-        <div class="named_input"> <p>Name:</p> <input id="sender_name"> </div>
-        <div class="named_input"> <p>ABN:</p> <input id="sender_abn"> </div>
-        <div class="named_input"> <p>Addr Line 1:</p> <input id="sender_addr1"> </div>
-        <div class="named_input"> <p>Addr Line 2:</p> <input id="sender_addr2"> </div>
-        <div class="named_input"> <p>Country:</p> <input id="sender_country"> </div>
+      <div class="detail_bar">
+        <div class="details">
+          <h2>Your Details:</h2>
+          <div class="named_input"> <p>Sender:</p> <select id="sender_selector"></select></div>
+          <div class="named_input"> <p>Name:</p> <input id="sender_name"> </div>
+          <div class="named_input"> <p>ABN:</p> <input id="sender_abn"> </div>
+          <div class="named_input"> <p>Addr Line 1:</p> <input id="sender_addr1"> </div>
+          <div class="named_input"> <p>Addr Line 2:</p> <input id="sender_addr2"> </div>
+          <div class="named_input"> <p>Country:</p> <input id="sender_country"> </div>
+        </div>
+        <div class="details">
+          <h2>Client Details:</h2>
+          <div class="named_input"> <p>Client:</p> <select id="client_selector"></select> </div>
+          <div class="named_input"> <p>Name:</p> <input id="client_name"> </div>
+          <div class="named_input"> <p>Addr Line 1:</p> <input id="client_addr1"> </div>
+          <div class="named_input"> <p>Addr Line 2:</p> <input id="client_addr2"> </div>
+          <div class="named_input"> <p>Country:</p> <input id="client_country"> </div>
+        </div>
+        <div class="details">
+          <h2>Invoice Details:</h2>
+          <div class="named_input"> <p>Inv Number:</p> <input id="inv_num"> </div>
+          <div class="named_input"> <p>Inv Date:</p> <input id="inv_date"> </div>
+          <div class="named_input"> <p>Due Date:</p> <input id="due_date"> </div>
+        </div>
       </div>
-      <div class="details">
-        <h2>Client Details:</h2>
-        <div class="named_input"> <p>Client:</p> <select id="client_selector"></select> </div>
-        <div class="named_input"> <p>Name:</p> <input id="client_name"> </div>
-        <div class="named_input"> <p>Addr Line 1:</p> <input id="client_addr1"> </div>
-        <div class="named_input"> <p>Addr Line 2:</p> <input id="client_addr2"> </div>
-        <div class="named_input"> <p>Country:</p> <input id="client_country"> </div>
+
+      <h2>Invoice Items:</h2>
+      <div id="item_list">
+        <div class="inv_item"><p>Preset</p><p>Name</p><p>Description</p><p>Price</p></div>
+        <div class="inv_item" id="item1"><select></select><input><textarea></textarea><input></div>
+        <div class="inv_item"><button id="add_item">Add Item</button><button id="rem_item">Remove Item</button><button id="save_item">Save Item</button><button id="del_item">Erase Item</button></div>
       </div>
-      <div class="details">
-        <h2>Invoice Details:</h2>
-        <div class="named_input"> <p>Inv Number:</p> <input id="inv_num"> </div>
-        <div class="named_input"> <p>Inv Date:</p> <input id="inv_date"> </div>
-        <div class="named_input"> <p>Due Date:</p> <input id="due_date"> </div>
+
+      <h2>Payment Details</h2>
+      <div class="detail_bar">
+        <div class="details">
+          <div class="named_input"><p>BSB:</p><input id="bsb"></div>
+          <div class="named_input"><p>ACC:</p><input id="acc"></div>
+        </div>
+        <div class="details" id="message">
+          <div class="named_input"><p>Message:</p><textarea id="msg"></textarea></div>
+        </div>
       </div>
+
+      <button id="save_invoice">Save Invoice</button>
     </div>
 
-    <h2>Invoice Items:</h2>
-    <div id="item_list">
-      <div class="inv_item"><p>Preset</p><p>Name</p><p>Description</p><p>Price</p></div>
-      <div class="inv_item" id="item1"><select></select><input><textarea></textarea><input></div>
-      <div class="inv_item"><button id="add_item">Add Item</button><button id="rem_item">Remove Item</button><button id="save_item">Save Item</button><button id="del_item">Erase Item</button></div>
-    </div>
+    <div id="previewWindow"></div>
 
-    <h2>Payment Details</h2>
-    <div class="detail_bar">
-      <div class="details">
-        <div class="named_input"><p>BSB:</p><input id="bsb"></div>
-        <div class="named_input"><p>ACC:</p><input id="acc"></div>
-      </div>
-      <div class="details" id="message">
-        <div class="named_input"><p>Message:</p><textarea id="msg"></textarea></div>
-      </div>
-    </div>
-
-    <button id="run">Generate Invoice</button>
     <script src="../js/util.js"></script>
     <script src="../js/sender.js"></script>
     <script src="../js/clients.js"></script>

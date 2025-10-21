@@ -138,3 +138,36 @@ function dom_to_pdf(dom, filename, save_path) {
         windowWidth: 800
     });
 }
+
+function update_preview(dom) {
+    // remove old preview if present
+    let preview = document.getElementById("preview");
+    if (preview) {
+        preview.remove();
+    }
+
+    // create iframe
+    let previewIframe = document.createElement("iframe");
+    previewIframe.id = "preview";
+    previewIframe.style.width = "794px";
+    previewIframe.style.height = "1123px";
+    previewIframe.style.border = "0";
+
+    // serialize the generated document
+    let html = new XMLSerializer().serializeToString(dom);
+
+    // determine stylesheet path
+    const cssHref = `file://${inv_style_path}`;
+
+    // add a base so relative paths resolve from app root (use parent dir of js folder)
+    const baseHref = `file://${path.resolve(__dirname, '..')}/`;
+
+    // inject base and stylesheet into <head>
+    const inject = `\n<base href="${baseHref}">\n<link rel="stylesheet" href="${cssHref}">`;
+    html = html.replace(/<head([^>]*)>/i, match => `${match}${inject}`);
+
+    // set iframe content
+    previewIframe.srcdoc = html;
+
+    document.getElementById("previewWindow").appendChild(previewIframe);
+}
