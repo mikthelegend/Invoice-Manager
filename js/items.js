@@ -72,14 +72,15 @@ function get_item_details(preset_name) {
 function save_item_preset(preset_name, item_details) {
     let data = get_data();
 
-    item_details.preset_name = preset_name;
-
-    let existing_preset = data.items.find(i => i.preset_name == preset_name);
-    if (existing_preset) {
-        existing_preset = item_details;
-    } else {
-        data.items.push(item_details);
-    }
+    if (preset_name == "") return;
+    
+    data.items = data.items.filter(i => i.preset_name != preset_name);
+    data.items.unshift({
+        name: item_details.name,
+        description: item_details.description,
+        price: item_details.price,
+        preset_name: preset_name
+    });
 
     set_data(data);
     update_item_selectors();
